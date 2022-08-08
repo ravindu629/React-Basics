@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ExpenseItem.css";
 import Card from "../UI/Card";
 import ExpenseDate from "./ExpenseDate";
@@ -19,9 +19,19 @@ function ExpenseItem(props) {
   //all these components and elements are composed together to form the overall ExpenseItem compont and
   //which then again used in other components to in the end overall , build the overall user interface
 
+  //with useState we basically craete a special kind of variable,
+  //a variable where changes will lead this component function to be called again
+  //we can assign initial value for that special variable
+  const [title, setTitle] = useState(props.title);
+
   //name a function like clickHandler if they are triggered upon an event
   const clickHandler = () => {
-    console.log("clicked!!!");
+    //by calling this function you are telling raect that you wanna assign a new value to this state
+    //and that then also tells react that the component in which this state was registered with useState should be re-evaluated
+    //and therefore react will go ahead and execute this component function again and therefore also evaluate this jsx code again
+    //and it will draw any changes which it's detected compared to the last time it evaluated this onto the screen
+    setTitle("Updated!");
+    console.log(title);
   };
 
   //this content between opening and closing card tag that is what will be available on props.children inside of that card
@@ -29,7 +39,7 @@ function ExpenseItem(props) {
     <Card className="expense-item">
       <ExpenseDate date={props.date} />
       <div className="expense-item__description">
-        <h2>{props.title}</h2>
+        <h2>{title}</h2>
         <div className="expense-item__price">${props.amount}</div>
       </div>
       <button onClick={clickHandler}>Change Title</button>
@@ -38,3 +48,44 @@ function ExpenseItem(props) {
 }
 
 export default ExpenseItem;
+
+// react component is js function which returns JSX , since it is a function someone has to call it
+// we used these functions like html elements in the jsx code , this is almost like function call
+//by using our components in our jsx code we make react aware of our component functions
+//whenever react evaluates jsx code it will call these component functions
+//and those component functions stand to return jsx code which is also evaluated up until there is no more jsx code to be evaluated
+//then it evaluates the overall result and translate that into DOM instructions which render on the screen
+//it is all started by the index.js file where we initially point at this app component
+//that is the first component function which is being called
+//react goes through all thses components execute all thsese  components functions and draw something on to the screen but react never repeats that
+// react goes through all of that when the application is initially rendered
+
+//if you have a variable in your component function and that variable changes , react ignores it
+//that code executes but the overall component function doesn't  execute again just because some variable change
+
+//useState is a function provided by react library and this function allows us to define values as state
+//where changes to thses values should reflect in the component function being called again
+//useState is a so called react hook, there are other hooks as well
+//all theses react hooks can be recognize by the fact that they start with the word "use"
+
+//with useState we basically craete a special kind of variable,
+//a variable where changes will lead this component function to be called again
+//we can assign initial value for that special variable
+
+//here initial value is props.title and we simply pass this as an argument to useState
+// Now this special variable is created
+//useState also return something it gives us access to this special variable
+//it also return a function which we can then call to assign a new value to that variable
+
+//useState actually returns an array ( first value is variable itself, second element in the array is that updating function)
+// first element --> current state value
+//second element --> function for updating that
+
+//by calling this function you are telling raect that you wanna assign a new value to this state
+//and that then also tells react that the component in which this state was registered with useState should be re-evaluated
+//and therefore react will go ahead and execute this component function again and therefore also evaluate this jsx code again
+//and it will draw any changes which it's detected compared to the last time it evaluated this onto the screen
+
+//if you have data, which might change, and where changes to that data should be reflected on the user interface then you need state
+//with state you can set and change values and when they do change react will re-evaluate the component in which the state was registered
+//and only that component , not any other components just this component which this state was registered
