@@ -22,7 +22,15 @@ function ExpenseItem(props) {
   //with useState we basically craete a special kind of variable,
   //a variable where changes will lead this component function to be called again
   //we can assign initial value for that special variable
+
+  //so this initial value is only considered when this component function is being executed for the first time for a given component instance
+
   const [title, setTitle] = useState(props.title);
+
+  //this will be called whenever the expenceItem component function is being executed
+  //this call 2 times because we are using ExpenceItem two times in Expences
+  //two seperate instances of this component are being created
+  console.log("expenceItem evaluated by react");
 
   //name a function like clickHandler if they are triggered upon an event
   const clickHandler = () => {
@@ -89,3 +97,22 @@ export default ExpenseItem;
 //if you have data, which might change, and where changes to that data should be reflected on the user interface then you need state
 //with state you can set and change values and when they do change react will re-evaluate the component in which the state was registered
 //and only that component , not any other components just this component which this state was registered
+
+//useState register some state,some value as a state for the component in which it is being called
+//we have seperate states even if create a component more than once
+//whenever state changes because we click a button in this case it's only this component function and
+//only that specific instance where this component is being used where react will re-evaluate it
+//only that specific instance is being re-evaluated and the other instances are not effected by that state change
+//state really is seperated on a per component instance basis
+
+//component function is re executed when the state is updated
+//we always get a brand new snapshot of that state when this component function re-executes
+
+//react keeps track of when we call useState in a given component instance for that first time
+//and when we call it for the first time ever it will take that argument as an initial value
+//but if a component is then re-executed because of such a state change for example,  react will not reinitialize the state
+//instead it will detect that this state had been initialized in the past and it will just grab the latest state
+//which is based on some state update for example, and give us that state instead
+//so this initial value is only considered when this component function is being executed for the first time for a given component instance
+
+//React will re-execute the component function and re-evaluate the jsx code whenever the state changes
