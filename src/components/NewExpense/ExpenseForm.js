@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ExpenseForm.css";
 
 const ExpenseForm = () => {
+  const [enteredTitle, setEnteredTitle] = useState("");
+  const [enteredAmount, setEnteredAmount] = useState("");
+  const [enteredDate, setEnteredDate] = useState("");
+
   //this function should be executed title input changes
   //if type in the title input field this function execute every keystroke
   //since we passed this function to react basically through this onChange prop react will make sure that we get such a event object
@@ -12,9 +16,24 @@ const ExpenseForm = () => {
   //it also has the value property . this value property holds the current value of this input at the point of time this event occurs
   //event.target.value to get the value which was currently entered when that event occured for that element on which we are listening
 
+  //no matter how often this component function might execute again, this state is stored and survives
+  //all these states inside of one component will then totally seperated from each other
+  //whwnever you listen to the change event for an input if you read the value of that input element it will always be a string
+
   const titleChangeHandler = (event) => {
+    //pass currently enetered value as a argument to the setEnteredTitle
+    setEnteredTitle(event.target.value);
+
     //get the current value with every keystroke
-    console.log(event.target.value);
+    //console.log(event.target.value);
+  };
+
+  const amountChangeHandler = (event) => {
+    setEnteredAmount(event.target.value);
+  };
+
+  const dateChangeHandler = (event) => {
+    setEnteredDate(event.target.value);
   };
 
   //onChange event trigger on every keystroke
@@ -28,11 +47,21 @@ const ExpenseForm = () => {
         </div>
         <div className="new-expense__control">
           <label>Amount</label>
-          <input type="number" min="0.01" step="0.01" />
+          <input
+            type="number"
+            min="0.01"
+            step="0.01"
+            onChange={amountChangeHandler}
+          />
         </div>
         <div className="new-expense__control">
           <label>Date</label>
-          <input type="date" min="2019-01-01" max="2022-12-31" />
+          <input
+            type="date"
+            min="2019-01-01"
+            max="2022-12-31"
+            onChange={dateChangeHandler}
+          />
         </div>
       </div>
       <div className="new-expense__actions">
