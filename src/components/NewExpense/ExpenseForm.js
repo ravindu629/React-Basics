@@ -2,9 +2,15 @@ import React, { useState } from "react";
 import "./ExpenseForm.css";
 
 const ExpenseForm = () => {
-  const [enteredTitle, setEnteredTitle] = useState("");
-  const [enteredAmount, setEnteredAmount] = useState("");
-  const [enteredDate, setEnteredDate] = useState("");
+  // const [enteredTitle, setEnteredTitle] = useState("");
+  // const [enteredAmount, setEnteredAmount] = useState("");
+  // const [enteredDate, setEnteredDate] = useState("");
+
+  const [userInput, setUserInput] = useState({
+    enteredTitle: "",
+    enteredAmount: "",
+    enteredDate: "",
+  });
 
   //this function should be executed title input changes
   //if type in the title input field this function execute every keystroke
@@ -22,18 +28,39 @@ const ExpenseForm = () => {
 
   const titleChangeHandler = (event) => {
     //pass currently enetered value as a argument to the setEnteredTitle
-    setEnteredTitle(event.target.value);
+    //setEnteredTitle(event.target.value);
+
+    //one state object managed as one piece of state instead of three sperate slices
+    //when you update your state react will not merge this with the old state , it will simply replace the old state with the new one
+    //if you are updating the title you also want to copy in the existing values for amount and date
+    //for that you can use spread operator and then you just override entered title
+    //takes an object pulls out all the key value pairs and add them to this new object and
+    //then we can still override key value pairs like in this case enteredTitle
+    setUserInput({
+      ...userInput,
+      enteredTitle: event.target.value,
+    });
 
     //get the current value with every keystroke
     //console.log(event.target.value);
   };
 
   const amountChangeHandler = (event) => {
-    setEnteredAmount(event.target.value);
+    // setEnteredAmount(event.target.value);
+
+    setUserInput({
+      ...userInput,
+      enteredAmount: event.target.value,
+    });
   };
 
   const dateChangeHandler = (event) => {
-    setEnteredDate(event.target.value);
+    // setEnteredDate(event.target.value);
+
+    setUserInput({
+      ...userInput,
+      enteredDate: event.target.value,
+    });
   };
 
   //onChange event trigger on every keystroke
