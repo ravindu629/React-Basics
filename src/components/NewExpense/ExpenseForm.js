@@ -36,9 +36,22 @@ const ExpenseForm = () => {
     //for that you can use spread operator and then you just override entered title
     //takes an object pulls out all the key value pairs and add them to this new object and
     //then we can still override key value pairs like in this case enteredTitle
-    setUserInput({
-      ...userInput,
-      enteredTitle: event.target.value,
+
+    // setUserInput({
+    //   ...userInput,
+    //   enteredTitle: event.target.value,
+    // });
+
+    //whenever you update the your state and you depend on the previous state you have to call setUserInput function and you passa function to it.
+    //and this function which you pass to setUsetInput will automatically be executed by react and it will receive the previous state snapshot
+    //for that state for which you are calling the updating function
+
+    //if you use this approach react will gurantee that the state snapshot it gives you here in this inner function will always be the latest state snaphot
+
+    //if your state update depend on the previous state use this function form
+    setUserInput((prevState) => {
+      //inside of this function that we passed to the state updating function we return the new state
+      return { ...prevState, enteredTitle: event.target.value };
     });
 
     //get the current value with every keystroke
