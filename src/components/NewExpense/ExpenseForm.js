@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import "./ExpenseForm.css";
 
 const ExpenseForm = () => {
-  // const [enteredTitle, setEnteredTitle] = useState("");
-  // const [enteredAmount, setEnteredAmount] = useState("");
-  // const [enteredDate, setEnteredDate] = useState("");
+  const [enteredTitle, setEnteredTitle] = useState("");
+  const [enteredAmount, setEnteredAmount] = useState("");
+  const [enteredDate, setEnteredDate] = useState("");
 
-  const [userInput, setUserInput] = useState({
-    enteredTitle: "",
-    enteredAmount: "",
-    enteredDate: "",
-  });
+  // const [userInput, setUserInput] = useState({
+  //   enteredTitle: "",
+  //   enteredAmount: "",
+  //   enteredDate: "",
+  // });
 
   //this function should be executed title input changes
   //if type in the title input field this function execute every keystroke
@@ -25,7 +25,7 @@ const ExpenseForm = () => {
   //no matter how often this component function might execute again, this state is stored and survives
   //all these states inside of one component will then totally seperated from each other
   //whwnever you listen to the change event for an input if you read the value of that input element it will always be a string
-
+  /* 
   const titleChangeHandler = (event) => {
     //pass currently enetered value as a argument to the setEnteredTitle
     //setEnteredTitle(event.target.value);
@@ -76,10 +76,43 @@ const ExpenseForm = () => {
     });
   };
 
+  */
+  const titleChangeHandler = (event) => {
+    setEnteredTitle(event.target.value);
+  };
+
+  const amountChangeHandler = (event) => {
+    setEnteredAmount(event.target.value);
+  };
+
+  const dateChangeHandler = (event) => {
+    setEnteredDate(event.target.value);
+  };
+
+  //if you click submit button in the form the page reloads because the browser actually automatically
+  //sends a request whenever form is submitted to the server which is hosting this web page. so in this case
+  // to this development server
+  //we can prevent the default of this request being sent and since that request is not sent the page now
+  //also not reload because we stay on the currently loaded page without sending any request anywhere
+  const submitHandler = (event) => {
+    event.preventDefault();
+
+    const expenseData = {
+      title: enteredTitle,
+      amount: enteredAmount,
+      date: new Date(enteredDate),
+    };
+
+    console.log(expenseData);
+  };
+
+  //if a button specially with type='submit' is pressed inside of a form this overall form element will
+  //emit an event to which we can listen
+
   //onChange event trigger on every keystroke
   //here add onChange event listner to this input
   return (
-    <form>
+    <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
         <div className="new-expense__control">
           <label>Title</label>
