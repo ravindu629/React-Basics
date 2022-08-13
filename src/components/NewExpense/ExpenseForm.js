@@ -104,6 +104,10 @@ const ExpenseForm = () => {
     };
 
     console.log(expenseData);
+
+    setEnteredTitle("");
+    setEnteredAmount("");
+    setEnteredDate("");
   };
 
   //if a button specially with type='submit' is pressed inside of a form this overall form element will
@@ -116,7 +120,11 @@ const ExpenseForm = () => {
       <div className="new-expense__controls">
         <div className="new-expense__control">
           <label>Title</label>
-          <input type="text" onChange={titleChangeHandler} />
+          <input
+            type="text"
+            value={enteredTitle}
+            onChange={titleChangeHandler}
+          />
         </div>
         <div className="new-expense__control">
           <label>Amount</label>
@@ -124,6 +132,7 @@ const ExpenseForm = () => {
             type="number"
             min="0.01"
             step="0.01"
+            value={enteredAmount}
             onChange={amountChangeHandler}
           />
         </div>
@@ -133,6 +142,7 @@ const ExpenseForm = () => {
             type="date"
             min="2019-01-01"
             max="2022-12-31"
+            value={enteredDate}
             onChange={dateChangeHandler}
           />
         </div>
@@ -145,3 +155,10 @@ const ExpenseForm = () => {
 };
 
 export default ExpenseForm;
+
+//two way binding --> for inputs we don't just listen to changes but we can also pass a new value back into the input
+//so that we can reset or change the input
+//now we don't just listen to changes in the input to update our state but also we feed the state back into the input
+//so that when we change the state we also change input
+
+//we override what the user entered after the form was submitted and therefore cleared the input
